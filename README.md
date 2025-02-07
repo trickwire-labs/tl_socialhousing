@@ -2,6 +2,8 @@
 
 A barebones "social housing" ("case popolari", in Italian) resource created mainly for italian crime-based RP servers. This was created by keeping in mind what most Italian RP servers want and need in a social housing script: a simple, free-to-select house with a stash and a wardrobe. No house sharing, garage, furniture, or other features, as players are pushed to purchase an actual home.
 
+### [Showcase](https://youtu.be/zxKIHiRfcwk) ###
+
 ---
 
 ## 🌟 Features 🌟
@@ -42,7 +44,15 @@ A barebones "social housing" ("case popolari", in Italian) resource created main
    ensure social-housing
    ```
 3. **Configure**: Customize the `config.lua` and `locale.lua` files to fit your server's needs.
-4. **Restart Your Server**: Restart your FiveM server to apply the changes.
+4. **SQL setup**: Run the query found in `install.sql` in your database management system.
+5. **Inventory setup**: If you plan on having players need a "key" item, add the following item to `ox_inventory/data/items.lua`:
+   ```lua
+   ['socialhousekey'] = { --Change 'socialhousekey' to whatever name you have configured in the `config.lua` file.
+		label = 'Social house key',
+		weight = 80,
+	},
+   ``
+6. **Restart Your Server**: Restart your FiveM server to apply the changes.
 
 ---
 

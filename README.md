@@ -45,7 +45,7 @@ A barebones "social housing" ("case popolari", in Italian) resource created main
 
 - ***TBD***
 
-[comment]: # (![Apartment Interior](https://via.placeholder.com/800x400))
+[comment]: # (![Apartment Interior]\(https://via.placeholder.com/800x400\))
 
 [comment]: # (*Example of a fully furnished apartment interior.*)
 

@@ -60,11 +60,11 @@ A barebones "social housing" ("case popolari", in Italian) resource created main
 
 ## 📸 Screenshots 📸
 
-- ***TBD***
+![image](https://github.com/user-attachments/assets/ed6a3607-b485-477c-8686-bd337424e420)
+*One of the preconfigured houses*
 
-[comment]: # (![Apartment Interior]\(https://via.placeholder.com/800x400\))
-
-[comment]: # (*Example of a fully furnished apartment interior.*)
+![image](https://github.com/user-attachments/assets/2a89d49a-c1ee-497f-adbd-56e9096b7082)
+*Seller interaction menu*
 
 ---
 

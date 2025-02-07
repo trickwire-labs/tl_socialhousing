@@ -10,7 +10,53 @@ lib.callback.register(ResourceName..':getDBHouse', function()
 end)
 
 lib.callback.register(ResourceName..':setDBHouse', function(playerId, house)
-    return SetPlayerHouseInDB(playerId, house)
+    local playerPos = GetEntityCoords(GetPlayerPed(source))
+	local targetPos = Config.SellerPed.position
+    local distance = #(playerPos - targetPos)
+    if distance > Config.InteractionDistance + 3 then --Accounts for some lag
+        lib.print.warn(string.format(Lang.cheatSetHouse, source))
+        return
+    end
+    return SetPlayerHouseInDB(source, house)
+end)
+
+lib.callback.register(ResourceName..':buyKey', function()
+    local playerPos = GetEntityCoords(GetPlayerPed(source))
+	local targetPos = Config.SellerPed.position
+    local distance = #(playerPos - targetPos)
+    if distance > Config.InteractionDistance + 3 then
+        lib.print.warn(string.format(Lang.cheatBuyKey, source))
+        return
+    end
+    local xPlayer = ESX.GetPlayerFromId(source)
+    local accounts = xPlayer.getAccounts()
+    local accountMoney
+    for _, data in ipairs(accounts) do
+        if data.name == Config.PaymentMethod then accountMoney = data.money end
+    end
+
+    if not accounts or not accountMoney then
+        ShowNotification(source, Lang.notificationTitle, Lang.cantLoadMoney, 'error', 4000)
+        return
+    end
+    if accountMoney >= Config.HouseKeyPrice then
+        if Inventory:CanCarryItem(source, Config.KeyItem, 1) then
+            local success, response = Inventory:AddItem(source, Config.KeyItem, 1)
+            if not success then
+                ShowNotification(source, Lang.notificationTitle, Lang.couldntBuyKey..addItemResponses[response], 'error', 4000)
+                return
+            else
+                xPlayer.removeAccountMoney(Config.PaymentMethod, Config.HouseKeyPrice)
+                return true
+            end
+        else
+            ShowNotification(source, Lang.notificationTitle, Lang.couldntBuyKey..Lang.inventoryWeightLimit, 'error', 4000)
+            return
+        end
+    else
+        ShowNotification(source, Lang.notificationTitle, Lang.couldntBuyKey..Lang.notEnoughMoney, 'error', 4000)
+        return
+    end
 end)
 
 AddEventHandler('onResourceStart', function(resourceName)
@@ -54,38 +100,6 @@ AddEventHandler('esx:playerLoaded', function(playerId, xPlayer)
     end
 
     SetClientsideHouse(playerId)
-end)
-
-lib.callback.register(ResourceName..':buyKey', function()
-    local xPlayer = ESX.GetPlayerFromId(source)
-    local accounts = xPlayer.getAccounts()
-    local accountMoney
-    for _, data in ipairs(accounts) do
-        if data.name == Config.PaymentMethod then accountMoney = data.money end
-    end
-
-    if not accounts or not accountMoney then
-        ShowNotification(source, Lang.notificationTitle, Lang.cantLoadMoney, 'error', 4000)
-        return
-    end
-    if accountMoney >= Config.HouseKeyPrice then
-        if Inventory:CanCarryItem(source, Config.KeyItem, 1) then
-            local success, response = Inventory:AddItem(source, Config.KeyItem, 1)
-            if not success then
-                ShowNotification(source, Lang.notificationTitle, Lang.couldntBuyKey..addItemResponses[response], 'error', 4000)
-                return
-            else
-                xPlayer.removeAccountMoney(Config.PaymentMethod, Config.HouseKeyPrice)
-                return true
-            end
-        else
-            ShowNotification(source, Lang.notificationTitle, Lang.couldntBuyKey..Lang.inventoryWeightLimit, 'error', 4000)
-            return
-        end
-    else
-        ShowNotification(source, Lang.notificationTitle, Lang.couldntBuyKey..Lang.notEnoughMoney, 'error', 4000)
-        return
-    end
 end)
 
 RegisterNetEvent(ResourceName..':routingEnter', function()

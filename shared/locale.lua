@@ -96,7 +96,8 @@ Locale = {
         skipHouseSetting                = 'No players found. Skipping house setting.',
         houseSettingForPlayersDebug     = 'Found %d players. Starting house setting for their clients.',
         doneCheckingPlayersHouse        = 'Done checking players\' houses. ',
-
+        cheatSetHouse                   = 'Player with server ID %d tried to set database house data from too far away. Possible cheater.',
+        cheatBuyKey                     = 'Player with server ID %d tried to buy a key from too far away. Possible cheater.',
         --Notifications
         cantLoadMoney                   = 'Issue loading your monetary accounts. Contact server staff.',
         couldntBuyKey                   = 'Could not buy key. Reason: ',
@@ -105,12 +106,11 @@ Locale = {
         inventoryFull                   = 'inventory is full.',
         inventoryWeightLimit            = 'it\'s too heavy for you.',
         notEnoughMoney                  = 'not enough money.',
-
         --Stashes
         stashLabel                      ='Social house stash',
     },
     ['it'] = {
-        --Client strings
+        --Stringhe client
         --Debug
         updateContextDebug              = 'Aggiornamento del menù per il giocatore %d, con casa %s, lato client. Questo è stato triggerato da questo client.',
         updateOptionsDebug              = 'Aggiornamento delle opzioni della casa e del venditore per il giocatore %d, con casa %s, lato client. Questo è stato triggerato da questo client.',
@@ -127,9 +127,9 @@ Locale = {
         removeSellerPedSuccess          = 'Venditore rimosso con successo.',
         removeSellerPedFail             = 'Rimozione del venditore fallita.',
         updatePhysHouseDebug            = 'Aggiornamento della casa fisica per il giocatore %d. Questo è stato triggerato da questo client.',
-        skipUpdatePhysHouseDebug        = 'Il giocatore %d non ha una casa popolare selezionata. Saltando l\'aggiornamento della casa fisica tale giocatore. Questo è stato triggerato da questo client.',
+        skipUpdatePhysHouseDebug        = 'Il giocatore %d non ha una casa popolare selezionata. Salto l\'aggiornamento della casa fisica di tale giocatore. Questo è stato triggerato da questo client.',
         updatePhysHouseSuccess          = 'Casa fisica aggiornata per il giocatore %d. Questo è stato triggerato da questo client.',
-        --Context menus
+        --Menu
         houseSelectionContextTitle      = 'Menù di selezione della casa',
         houseSellerContextTitle         = 'Menù del venditore di case',
         hscChooseTitle                  = 'Scegli una casa popolare',
@@ -138,7 +138,7 @@ Locale = {
         hscKeyDesc                      = 'Compra una chiave per la tua casa popolare.',
         priceLabel                      = 'Prezzo',
         paymentMethodLabel              = 'Metodo di pagamento',
-        --Notifications
+        --Notifiche
         notificationTitle               = 'Case popolari',
         houseChoosingSuccess            = 'Hai scelto %s come tua casa popolare.',
         houseChoosingError              = 'Impossibile scegliere la casa correttamente. Contatta l\'amministrazione del server.',
@@ -161,7 +161,7 @@ Locale = {
         progBarSpeakWithSeller          = 'Parlando con il venditore...',
         progBarStopSWS                  = 'Hai smesso di parlare con il venditore.',
 
-        --Server strings
+        --Stringhe server
         --Debug
         startingResourceDebug           = 'Avvio di %s.',
         startingResourceSuccess         = '%s avviato con successo.',
@@ -200,14 +200,15 @@ Locale = {
         validInteractionMethod          = 'Metodo di interazione %s validato correttamente.',
         invalidAppearance               = 'Configurazione non corretta per \"Config.Appearance\". Controlla il file config.lua.',
         validAppearance                 = 'Risorsa di aspetto %s validata correttamente.',
-        skipModelCheck                  = 'Nessun giocatore trovato. Saltando il controllo del modello del ped.',
+        skipModelCheck                  = 'Nessun giocatore trovato. Salto il controllo del modello del ped.',
         doneCheckingConfig              = 'Controllo della configurazione completato. ',
         checkingPlayersHouses           = 'Controllo delle case dei giocatori.',
-        skipHouseSetting                = 'Nessun giocatore trovato. Saltando l\'impostazione della casa.',
+        skipHouseSetting                = 'Nessun giocatore trovato. Salto l\'impostazione della casa.',
         houseSettingForPlayersDebug     = 'Trovati %d giocatori. Avvio dell\'impostazione della casa per i loro client.',
         doneCheckingPlayersHouse        = 'Controllo delle case dei giocatori completato. ',
-
-        --Notifications
+        cheatSetHouse                   = 'Giocatore con server ID %d ha provato a settare la sua casa popolare nel database da troppo lontano. Possibile cheater.',
+        cheatBuyKey                     = 'Giocatore con server ID %d ha provato a comprare una chiave da troppo lontano. Possibile cheater.',
+        --Notifiche
         cantLoadMoney                   = 'Problema nel caricamento dei tuoi conti monetari. Contatta lo staff del server.',
         couldntBuyKey                   = 'Impossibile acquistare la chiave. Motivo: ',
         invalidItem                     = 'l\'oggetto non è valido. Contatta lo staff del server.',
@@ -215,8 +216,7 @@ Locale = {
         inventoryFull                   = 'l\'inventario è pieno.',
         inventoryWeightLimit            = 'è troppo pesante per te.',
         notEnoughMoney                  = 'non hai abbastanza soldi.',
-
-        --Stashes
+        --Depositi
         stashLabel                      ='Deposito della casa popolare',
     }
 }

@@ -13,7 +13,7 @@ A barebones "social housing" ("case popolari", in Italian) resource created main
 
 ### 🛠️ **Configuration**
 - **Data**: Every piece of data within the resource is fully configurable in the `config.lua` file. This includes distances, dimensions, houses, ipls, markers, and more.
-- **Language support**: Languages included in a locale.lua file. Languages currently pre-defined: English and Italian, but you're free to add any other language.
+- **Language support**: Languages included in a `locale.lua` file. Languages currently pre-defined: English and Italian, but you're free to add any other language.
 
 ### 💻 **Dev-friendly**
 - **Debugging**: Extremely extensive, language-aware debugging for developers wanting to work with the resource.

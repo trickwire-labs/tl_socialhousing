@@ -22,7 +22,12 @@ A barebones "social housing" ("case popolari", in Italian) resource created main
 ### 🔩 **Compatiblity**
 - **Interaction methods**: Supports both ox_lib points (with textUI) and "third-eyeing" with ox_target.
 - **Customization**: Customizable textUI and notification functions to allow quick n easy integration with any textUI or notification resource.
-- **Supports ESX**: Currently only supports ESX, but PRs supporting any other framework are welcomed. This was meant as a quick project, as 99% of servers needing this type of resource run on ESX.
+- **Supports ESX**: Currently only supports ESX, but PRs supporting any other framework are welcomed. This was meant as a quick project, as 99% of servers needing this type of resource run on ESX
+
+### 🔴 **Dependencies**
+- **[ox_lib](https://github.com/overextended/ox_lib)**
+- **[ox_inventory](https://github.com/overextended/ox_inventory)**
+- **[es_extended](https://github.com/esx-framework)**
 
 ---
 

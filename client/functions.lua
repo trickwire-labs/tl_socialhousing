@@ -52,7 +52,7 @@ local function updateSellerInteraction(ped)
     if targets.sellerTarget then
         Target:removeLocalEntity(ped, 'speakwithseller')
         targets.sellerTarget = nil
-    elseif points.houseEntrancePoint then points.houseEntrancePoint:remove() end
+    elseif points.sellerPoint then points.sellerPoint:remove() end
 
     if interactionMethod == 'target' then
         local targetPedOptions = {
@@ -231,6 +231,7 @@ local function enterHouse()
     while not IsScreenFadedOut() do Wait(0) end
     TriggerServerEvent(ResourceName..':routingEnter')
     if isTextUIOpen() then hideTextUI() end
+    RequestCollisionAtCoord(ipl.exitCoords)
     SetEntityCoords(cache.ped, ipl.exitCoords)
     DoScreenFadeIn(800)
     Wait(800)

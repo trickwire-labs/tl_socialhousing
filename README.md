@@ -93,7 +93,7 @@ Have questions, suggestions, or need help? Join our [Discord server](https://dis
 
 - **GitHub**: [Seven](https://github.com/squarerootof49)
 - **Github**: [Trickwire Labs](https://github.com/trickwire-labs)
-- **Discord**: [Join our Community](https://discord.gg/PcD7sjW3p)
+- **Discord**: [Join our Community](https://discord.gg/q7Sq9wJhbR)
 - **FiveM Forum**: [tl_socialhousing thread] (TBD)
 
 ---

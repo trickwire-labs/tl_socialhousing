@@ -2,7 +2,7 @@
 
 # 🏘️ Social Housing for FiveM 🏘️
 
-A barebones "social housing" ("case popolari", in Italian) resource created mainly for italian crime-based RP servers. This was created by keeping in mind what most Italian RP servers want and need in a social housing script: a simple, free-to-select house with a stash and a wardrobe. No house sharing, garage, furniture, or other features, as players are pushed to purchase an actual home.
+An ESX-only barebones "social housing" ("case popolari", in Italian) resource created mainly for italian crime-based RP servers. This was created by keeping in mind what most Italian RP servers want and need in a social housing script: a simple, free-to-select house with a stash and a wardrobe. No house sharing, garage, furniture, or other features, as players are pushed to purchase an actual home.
 
 ### [Showcase](https://youtu.be/zxKIHiRfcwk) ###
 

@@ -43,7 +43,7 @@ An ESX-only barebones "social housing" ("case popolari", in Italian) resource cr
    ```
 2. **Add to Server Config**: Ensure the resource is added to your `server.cfg`.
    ```bash
-   ensure social-housing
+   ensure tl_socialhousing
    ```
 3. **Configure**: Customize the `config.lua` and `locale.lua` files to fit your server's needs.
 4. **SQL setup**: Run the query found in `install.sql` in your database management system.
@@ -85,7 +85,7 @@ This project is licensed under the GPL-3.0 license. See the [LICENSE](LICENSE) f
 
 ## 💬 Support & Feedback 💬
 
-Have questions, suggestions, or need help? Join our [Discord server](https://discord.gg/PcD7sjW3p8) or open an issue on GitHub. We'd love to hear from you!
+Have questions, suggestions, or need help? Join our [Discord server](https://discord.gg/q7Sq9wJhbR) or open an issue on GitHub. We'd love to hear from you!
 
 ---
 

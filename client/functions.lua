@@ -1,11 +1,12 @@
-local Config                    = Config
-local debug                     = Config.Debug
-local houseBlip                 = nil
-local interactionMethod         = Config.InteractionMethod
-local interactionSize           = vec3(Config.InteractionSize, Config.InteractionSize, Config.InteractionSize)
-local interactionDistance       = Config.InteractionDistance
-local targets                   = {}
-local points                    = {}
+---@diagnostic disable: param-type-mismatch, missing-parameter
+local Config              = Config
+local debug               = Config.Debug
+local houseBlip           = nil
+local interactionMethod   = Config.InteractionMethod
+local interactionSize     = vec3(Config.InteractionSize, Config.InteractionSize, Config.InteractionSize)
+local interactionDistance = Config.InteractionDistance
+local targets             = {}
+local points              = {}
 
 --Implement your own notification system or use exports/events from your current notification system.
 RegisterNetEvent(ResourceName .. ':notify', function(title, description, type, duration)
@@ -52,7 +53,9 @@ local function updateSellerInteraction(ped)
     if targets.sellerTarget then
         Target:removeLocalEntity(ped, 'speakwithseller')
         targets.sellerTarget = nil
-    elseif points.sellerPoint then points.sellerPoint:remove() end
+    elseif points.sellerPoint then
+        points.sellerPoint:remove()
+    end
 
     if interactionMethod == 'target' then
         local targetPedOptions = {
@@ -61,23 +64,23 @@ local function updateSellerInteraction(ped)
                 icon = 'fa-solid fa-comment',
                 name = 'speakwithseller',
                 distance = interactionDistance,
-                canInteract = function ()
-                        return not IsEntityDead(cache.ped)
+                canInteract = function()
+                    return not IsEntityDead(cache.ped)
                 end,
-                onSelect = function ()
+                onSelect = function()
                     if lib.progressBar({
-                        duration = 1500,
-                        label = Lang.progBarSpeakWithSeller,
-                        useWhileDead = false,
-                        canCancel = true,
-                        disable = {
-                            move = true,
-                            car = true,
-                            combat = true,
-                            mouse = false,
-                            sprint = true
-                        },
-                    }) then
+                            duration = 1500,
+                            label = Lang.progBarSpeakWithSeller,
+                            useWhileDead = false,
+                            canCancel = true,
+                            disable = {
+                                move = true,
+                                car = true,
+                                combat = true,
+                                mouse = false,
+                                sprint = true
+                            },
+                        }) then
                         lib.showContext('main_seller_menu')
                     end
                 end
@@ -98,18 +101,18 @@ local function updateSellerInteraction(ped)
             if IsControlJustPressed(0, 38) then
                 lib.hideTextUI()
                 if lib.progressBar({
-                    duration = 1500,
-                    label = Lang.progBarSpeakWithSeller,
-                    useWhileDead = false,
-                    canCancel = true,
-                    disable = {
-                        move = true,
-                        car = true,
-                        combat = true,
-                        mouse = false,
-                        sprint = true
-                    },
-                }) then
+                        duration = 1500,
+                        label = Lang.progBarSpeakWithSeller,
+                        useWhileDead = false,
+                        canCancel = true,
+                        disable = {
+                            move = true,
+                            car = true,
+                            combat = true,
+                            mouse = false,
+                            sprint = true
+                        },
+                    }) then
                     lib.showContext('main_seller_menu')
                     hideTextUI()
                 else
@@ -122,9 +125,16 @@ local function updateSellerInteraction(ped)
 end
 
 local function removeSellerInteraction(ped)
-    if targets.sellerTarget then Target:removeLocalEntity(ped, 'speakwithseller') targets.sellerTarget = false return true
-    elseif points.sellerPoint then points.sellerPoint:remove() return true
-    else return false end
+    if targets.sellerTarget then
+        Target:removeLocalEntity(ped, 'speakwithseller')
+        targets.sellerTarget = false
+        return true
+    elseif points.sellerPoint then
+        points.sellerPoint:remove()
+        return true
+    else
+        return false
+    end
 end
 
 function CreateSellerPed()
@@ -160,10 +170,11 @@ function CreateSellerPed()
             if debug then
                 lib.print.error(Lang.createSellerPedFail)
                 lib.print.debug('---------------------------------------------------------------------------')
-                end
             end
+        end
         SetModelAsNoLongerNeeded(pedObject.model)
     end
+
     function points.sellerPedPoint:onExit()
         if debug then
             lib.print.debug('---------------------------------------------------------------------------')
@@ -202,15 +213,15 @@ local function openWardrobe()
 end
 
 local function openStash()
-    local stashId = Config.Houses[PlayerHouse].iplType..' stash'
-    Inventory:openInventory('stash', {id=stashId, owner=ESX.PlayerData.identifier})
+    local stashId = Config.Houses[PlayerHouse].iplType .. ' stash'
+    Inventory:openInventory('stash', { id = stashId, owner = ESX.PlayerData.identifier })
 end
 
 local function exitHouse()
     local house = Config.Houses[PlayerHouse]
     DoScreenFadeOut(800)
     while not IsScreenFadedOut() do Wait(0) end
-    TriggerServerEvent(ResourceName..':routingExit')
+    TriggerServerEvent(ResourceName .. ':routingExit')
     if isTextUIOpen() then hideTextUI() end
     SetEntityCoords(cache.ped, house.position)
     DoScreenFadeIn(800)
@@ -229,7 +240,7 @@ local function enterHouse()
 
     DoScreenFadeOut(800)
     while not IsScreenFadedOut() do Wait(0) end
-    TriggerServerEvent(ResourceName..':routingEnter')
+    TriggerServerEvent(ResourceName .. ':routingEnter')
     if isTextUIOpen() then hideTextUI() end
     RequestCollisionAtCoord(ipl.exitCoords)
     SetEntityCoords(cache.ped, ipl.exitCoords)
@@ -257,16 +268,16 @@ local function updateHouseInteractions()
 
     if interactionMethod == 'target' then
         --Wardrobe target
-        local wardrobeTargetOptions = {
-            coords      = ipl.wardrobeCoords,
-            size        = interactionSize,
-            options     = {
+        local wardrobeTargetOptions  = {
+            coords  = ipl.wardrobeCoords,
+            size    = interactionSize,
+            options = {
                 {
                     label = Lang.openWardrobeTarget,
                     name = 'housewardrobe',
                     icon = 'fa-solid fa-shirt',
                     distance = interactionDistance,
-                    canInteract = function ()
+                    canInteract = function()
                         return not IsEntityDead(cache.ped)
                     end,
                     onSelect = openWardrobe
@@ -275,16 +286,16 @@ local function updateHouseInteractions()
 
         }
         --Stash target
-        local stashTargetOptions = {
-            coords      = ipl.stashCoords,
-            size        = interactionSize,
-            options     = {
+        local stashTargetOptions     = {
+            coords  = ipl.stashCoords,
+            size    = interactionSize,
+            options = {
                 {
                     label = Lang.openStashTarget,
                     name = 'housestash',
                     icon = 'fa-solid fa-shirt',
                     distance = interactionDistance,
-                    canInteract = function ()
+                    canInteract = function()
                         return not IsEntityDead(cache.ped)
                     end,
                     onSelect = openStash
@@ -294,15 +305,15 @@ local function updateHouseInteractions()
         }
         --Exit target
         local houseExitTargetOptions = {
-            coords      = ipl.exitCoords,
-            size        = interactionSize,
-            options     = {
+            coords  = ipl.exitCoords,
+            size    = interactionSize,
+            options = {
                 {
                     label = Lang.exitHouseTarget,
                     name = 'houseexit',
                     icon = 'fa-solid fa-box-open',
                     distance = interactionDistance,
-                    canInteract = function ()
+                    canInteract = function()
                         return not IsEntityDead(cache.ped)
                     end,
                     onSelect = exitHouse
@@ -310,9 +321,9 @@ local function updateHouseInteractions()
             }
 
         }
-        targets.wardrobeTarget  = Target:addBoxZone(wardrobeTargetOptions)
-        targets.stashTarget     = Target:addBoxZone(stashTargetOptions)
-        targets.houseExitTarget = Target:addBoxZone(houseExitTargetOptions)
+        targets.wardrobeTarget       = Target:addBoxZone(wardrobeTargetOptions)
+        targets.stashTarget          = Target:addBoxZone(stashTargetOptions)
+        targets.houseExitTarget      = Target:addBoxZone(houseExitTargetOptions)
     else
         local wardrobeMarker = lib.marker.new(Config.Marker)
         local stashMarker = lib.marker.new(Config.Marker)
@@ -322,7 +333,8 @@ local function updateHouseInteractions()
         stashMarker.coords = ipl.stashCoords
         stashMarker.coords = vector3(stashMarker.coords.x, stashMarker.coords.y, stashMarker.coords.z - 0.975)
         houseExitMarker.coords = ipl.exitCoords
-        houseExitMarker.coords = vector3(houseExitMarker.coords.x, houseExitMarker.coords.y, houseExitMarker.coords.z - 0.975)
+        houseExitMarker.coords = vector3(houseExitMarker.coords.x, houseExitMarker.coords.y,
+            houseExitMarker.coords.z - 0.975)
 
         --Wardrobe point
         points.wardrobePoint = lib.points.new({
@@ -334,19 +346,20 @@ local function updateHouseInteractions()
 
             if self.currentDistance < Config.InteractionDistance then
                 if not isTextUIOpen() then
-                  showTextUI(Lang.openWardrobe)
+                    showTextUI(Lang.openWardrobe)
                 end
 
                 if IsControlJustPressed(0, 38) then
-                  openWardrobe()
+                    openWardrobe()
                 end
             else
-              local isOpen, currentText = isTextUIOpen()
+                local isOpen, currentText = isTextUIOpen()
                 if isOpen and currentText == Lang.openWardrobe then
                     hideTextUI()
                 end
             end
         end
+
         --Stash point
         points.stashPoint = lib.points.new({
             coords = ipl.stashCoords,
@@ -357,20 +370,21 @@ local function updateHouseInteractions()
 
             if self.currentDistance < Config.InteractionDistance then
                 if not isTextUIOpen() then
-                  showTextUI(Lang.openStash)
+                    showTextUI(Lang.openStash)
                 end
 
                 if IsControlJustPressed(0, 38) then
-                  openStash()
-                  hideTextUI()
+                    openStash()
+                    hideTextUI()
                 end
             else
-              local isOpen, currentText = isTextUIOpen()
+                local isOpen, currentText = isTextUIOpen()
                 if isOpen and currentText == Lang.openStash then
                     hideTextUI()
                 end
             end
         end
+
         --Exit point
         points.houseExitPoint = lib.points.new({
             coords = ipl.exitCoords,
@@ -381,14 +395,14 @@ local function updateHouseInteractions()
 
             if self.currentDistance < Config.InteractionDistance then
                 if not isTextUIOpen() then
-                  showTextUI(Lang.exitHouse)
+                    showTextUI(Lang.exitHouse)
                 end
 
                 if IsControlJustPressed(0, 38) then
-                  exitHouse()
+                    exitHouse()
                 end
             else
-              local isOpen, currentText = isTextUIOpen()
+                local isOpen, currentText = isTextUIOpen()
                 if isOpen and currentText == Lang.exitHouse then
                     hideTextUI()
                 end
@@ -402,19 +416,21 @@ local function updateHouseEntrance()
     if targets.houseEntranceTarget then
         Target:removeZone(targets.houseEntranceTarget)
         targets.houseEntranceTarget = nil
-    elseif points.houseEntrancePoint then points.houseEntrancePoint:remove() end
+    elseif points.houseEntrancePoint then
+        points.houseEntrancePoint:remove()
+    end
 
     if interactionMethod == 'target' then
         local houseEntranceTargetOptions = {
-            coords      = house.position,
-            size        = interactionSize,
-            options     = {
+            coords  = house.position,
+            size    = interactionSize,
+            options = {
                 {
                     label = Lang.enterHouseTarget,
-                    name = 'housentrance'..PlayerHouse,
+                    name = 'housentrance' .. PlayerHouse,
                     icon = 'fa-solid fa-door-open',
                     distance = interactionDistance,
-                    canInteract = function ()
+                    canInteract = function()
                         return not IsEntityDead(cache.ped)
                     end,
                     onSelect = enterHouse
@@ -426,7 +442,8 @@ local function updateHouseEntrance()
     else
         local houseEntranceMarker = lib.marker.new(Config.Marker)
         houseEntranceMarker.coords = house.position
-        houseEntranceMarker.coords = vector3(houseEntranceMarker.coords.x, houseEntranceMarker.coords.y, houseEntranceMarker.coords.z - 0.975)
+        houseEntranceMarker.coords = vector3(houseEntranceMarker.coords.x, houseEntranceMarker.coords.y,
+            houseEntranceMarker.coords.z - 0.975)
 
         points.houseEntrancePoint = lib.points.new({
             coords = house.position,
@@ -438,14 +455,14 @@ local function updateHouseEntrance()
 
             if self.currentDistance < Config.InteractionDistance then
                 if not isTextUIOpen() then
-                  showTextUI(Lang.enterHouse)
+                    showTextUI(Lang.enterHouse)
                 end
 
                 if IsControlJustPressed(0, 38) then
-                  enterHouse(house.iplType)
+                    enterHouse()
                 end
             else
-              local isOpen, currentText = isTextUIOpen()
+                local isOpen, currentText = isTextUIOpen()
                 if isOpen and currentText == Lang.enterHouse then
                     hideTextUI()
                 end
@@ -456,20 +473,23 @@ end
 
 function UpdatePhysicalHouse()
     if debug then
-        TriggerServerEvent(ResourceName..':debugPrint', string.format(Lang.updatePhysHouseDebug, cache.serverId))
+        TriggerServerEvent(ResourceName .. ':debugPrint', string.format(Lang.updatePhysHouseDebug, cache.serverId))
     end
     if houseBlip then RemoveBlip(houseBlip) end
     if PlayerHouse == '' then
-        if debug then TriggerServerEvent(ResourceName..':debugPrint', string.format(Lang.skipUpdatePhysHouseDebug, cache.serverId)) end
+        if debug then
+            TriggerServerEvent(ResourceName .. ':debugPrint',
+                string.format(Lang.skipUpdatePhysHouseDebug, cache.serverId))
+        end
         return
     end
     local house = Config.Houses[PlayerHouse]
     if house.blip.active then
         houseBlip = AddBlipForCoord(house.position.x, house.position.y, house.position.z)
-        SetBlipSprite (houseBlip, house.blip.sprite)
+        SetBlipSprite(houseBlip, house.blip.sprite)
         SetBlipDisplay(houseBlip, 4)
-        SetBlipScale  (houseBlip, house.blip.size)
-        SetBlipColour (houseBlip, house.blip.color)
+        SetBlipScale(houseBlip, house.blip.size)
+        SetBlipColour(houseBlip, house.blip.color)
         SetBlipAsShortRange(houseBlip, true)
         BeginTextCommandSetBlipName("STRING")
         AddTextComponentString(house.blip.name)
@@ -479,7 +499,8 @@ function UpdatePhysicalHouse()
     updateHouseInteractions()
 
     if debug then
-        TriggerServerEvent(ResourceName..':debugPrint', string.format(Lang.updatePhysHouseSuccess, cache.serverId))
-        TriggerServerEvent(ResourceName..':debugPrint','---------------------------------------------------------------------------')
+        TriggerServerEvent(ResourceName .. ':debugPrint', string.format(Lang.updatePhysHouseSuccess, cache.serverId))
+        TriggerServerEvent(ResourceName .. ':debugPrint',
+            '---------------------------------------------------------------------------')
     end
 end

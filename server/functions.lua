@@ -21,23 +21,27 @@ end
 
 function SetClientsideHouse(playerId)
     local playerHouse = GetPlayerHouseFromDB(playerId)
+    if not playerHouse then
+        playerHouse = ''
+    end
 
-    if debug then
-        if not playerHouse or playerHouse == '' then
-            lib.print.debug(string.format(Lang.playerNoHouseDBDebug, playerId))
-            playerHouse = ''
-        end
+    if not playerHouse or playerHouse == '' then
+        lib.print.debug(string.format(Lang.playerNoHouseDBDebug, playerId))
         lib.print.debug(string.format(Lang.fetchingUpdatingCLDebug, playerId, playerHouse or Lang.nonExisting))
     end
 
     local success = lib.callback.await(ResourceName .. ':setHouse', playerId, playerHouse)
     if not success then
-        if debug then lib.print.error(string.format(Lang.fetchingUpdatingCLFail, playerId,
-                playerHouse or Lang.nonExisting)) end
+        if debug then
+            lib.print.error(string.format(Lang.fetchingUpdatingCLFail, playerId,
+                playerHouse or Lang.nonExisting))
+        end
         return
     else
-        if debug then lib.print.debug(string.format(Lang.fetchingUpdatingCLSuccess, playerId,
-                playerHouse or Lang.nonExisting)) end
+        if debug then
+            lib.print.debug(string.format(Lang.fetchingUpdatingCLSuccess, playerId,
+                playerHouse or Lang.nonExisting))
+        end
     end
 end
 

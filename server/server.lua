@@ -22,7 +22,7 @@ end)
 
 lib.callback.register(ResourceName .. ':buyKey', function()
     local playerPos = GetEntityCoords(GetPlayerPed(source))
-    local targetPos = Config.SellerPed.position
+    local targetPos = vec3(Config.SellerPed.position.x, Config.SellerPed.position.y, Config.SellerPed.position.z)
     local distance = #(playerPos - targetPos)
     if distance > Config.InteractionDistance + 3 then
         lib.print.warn(string.format(Lang.cheatBuyKey, source))

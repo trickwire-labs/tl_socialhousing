@@ -4,17 +4,19 @@ local debug = Config.Debug
 local ipls = Config.Ipls
 
 function SetPlayerHouseInDB(playerId, house)
----@diagnostic disable-next-line: undefined-field
+    ---@diagnostic disable-next-line: undefined-field
     local xPlayer = ESX.GetPlayerFromId(playerId)
     if not xPlayer then return end
-    return MySQL.update.await('UPDATE `users` SET `social_house` = ? WHERE `identifier` = ? LIMIT 1', { house, xPlayer.getIdentifier() })
+    return MySQL.update.await('UPDATE `users` SET `social_house` = ? WHERE `identifier` = ? LIMIT 1',
+        { house, xPlayer.getIdentifier() })
 end
 
 function GetPlayerHouseFromDB(playerId)
----@diagnostic disable-next-line: undefined-field
+    ---@diagnostic disable-next-line: undefined-field
     local xPlayer = ESX.GetPlayerFromId(playerId)
     if not xPlayer then return end
-    return MySQL.scalar.await('SELECT `social_house` FROM `users` WHERE `identifier` = ? LIMIT 1', { xPlayer.getIdentifier() })
+    return MySQL.scalar.await('SELECT `social_house` FROM `users` WHERE `identifier` = ? LIMIT 1',
+        { xPlayer.getIdentifier() })
 end
 
 function SetClientsideHouse(playerId)
@@ -28,12 +30,14 @@ function SetClientsideHouse(playerId)
         lib.print.debug(string.format(Lang.fetchingUpdatingCLDebug, playerId, playerHouse or Lang.nonExisting))
     end
 
-    local success = lib.callback.await(ResourceName..':setHouse', playerId, playerHouse)
+    local success = lib.callback.await(ResourceName .. ':setHouse', playerId, playerHouse)
     if not success then
-        if debug then lib.print.error(string.format(Lang.fetchingUpdatingCLFail, playerId, playerHouse or Lang.nonExisting)) end
+        if debug then lib.print.error(string.format(Lang.fetchingUpdatingCLFail, playerId,
+                playerHouse or Lang.nonExisting)) end
         return
     else
-        if debug then lib.print.debug(string.format(Lang.fetchingUpdatingCLSuccess, playerId, playerHouse or Lang.nonExisting)) end
+        if debug then lib.print.debug(string.format(Lang.fetchingUpdatingCLSuccess, playerId,
+                playerHouse or Lang.nonExisting)) end
     end
 end
 
@@ -47,7 +51,7 @@ function RegisterIplStashes()
             lib.print.debug(string.format(Lang.registeringStashDebug, iplKey))
         end
         local stash = {
-            id = iplKey..' stash',
+            id = iplKey .. ' stash',
             label = Lang.stashLabel,
             slots = Config.StashSlots,
             weight = Config.StashWeight,
@@ -77,9 +81,9 @@ function RunPedModelCheck(playerId)
         lib.print.error(Lang.pedObjectNotFound)
         return
     else
-        if debug then lib.print.debug(Lang.pedObjectFound..pedObject.model) end
+        if debug then lib.print.debug(Lang.pedObjectFound .. pedObject.model) end
     end
-    local isPedModelCorrect = lib.callback.await(ResourceName..':checkPedModel', playerId)
+    local isPedModelCorrect = lib.callback.await(ResourceName .. ':checkPedModel', playerId)
     if not isPedModelCorrect or not pedObject.position or not pedObject.model or not pedObject.distance or not pedObject.blip then
         lib.print.error(Lang.invalidePedData)
         return

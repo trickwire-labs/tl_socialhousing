@@ -9,7 +9,7 @@ lib.callback.register(ResourceName..':getDBHouse', function()
     return GetPlayerHouseFromDB(source)
 end)
 
-lib.callback.register(ResourceName..':setDBHouse', function(playerId, house)
+lib.callback.register(ResourceName..':setDBHouse', function(source, house)
     local playerPos = GetEntityCoords(GetPlayerPed(source))
 	local targetPos = Config.SellerPed.position
     local distance = #(playerPos - targetPos)
